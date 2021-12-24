@@ -17,7 +17,7 @@ class Basket:
         self.delivery_rule_service = delivery_rule_service
         self.offer_rule_service = offer_rule_service
         self.basket_items_manager = BasketItemsService()
-        self.delivery_fee: Currency = Currency(0, self.product_catalogue.currency_type)
+        self.delivery_fee: Optional[Currency] = None
         self.offer: Optional[OfferRule] = None
 
     def delta_change_calculation(self):
@@ -43,11 +43,10 @@ class Basket:
         self.delta_change_calculation()
 
     def __total_basket_price(self) -> Currency:
-        return sum([basket_item.discounted_price for basket_item in self.basket_items_manager],
-                   start=Currency(0, self.product_catalogue.currency_type))
+        return sum([basket_item.discounted_price for basket_item in self.basket_items_manager])
 
     def total(self):
-        return self.__total_basket_price() + self.delivery_fee
+        return self.__total_basket_price() + self.delivery_fee if self.delivery_fee else self.__total_basket_price()
 
     def __str__(self):
         return str(self.basket_items_manager) \

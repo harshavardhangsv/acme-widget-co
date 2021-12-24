@@ -18,14 +18,13 @@ class Product:
 
 
 class ProductCatalogue:
-    def __init__(self, currency_type: CurrencyType):
+    def __init__(self):
         self.product_map = {}
-        self.currency_type = currency_type
 
     def add(self, product_code: str, product_name: str, price: float) -> None:
         if product_code in self.product_map:
             raise Exception('product with the given code is already present')
-        self.product_map[product_code] = Product(product_code, product_name, Currency(price, self.currency_type))
+        self.product_map[product_code] = Product(product_code, product_name, Currency(price))
 
     def remove(self, product_code: str) -> None:
         product = self.product_map.pop(product_code, None)

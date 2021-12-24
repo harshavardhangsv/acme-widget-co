@@ -10,7 +10,7 @@ class CurrencyType(Enum):
 @dataclass
 class Currency:
     amount: float
-    type: CurrencyType
+    type: CurrencyType = CurrencyType.USD
 
     def __post_init__(self):
         self.amount = round(self.amount, 2)
