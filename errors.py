@@ -9,3 +9,6 @@ class UnknownProductCode(Error):
 class DeliveryRuleOverlap(Error):
     pass
 
+
+class SameConditionedOfferExists(Error):
+    pass

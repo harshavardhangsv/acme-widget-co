@@ -1,15 +1,8 @@
-from dataclasses import dataclass
 from typing import List
 
 from currency import Currency
+from delivery_rule_service.delivery_rule import DeliveryRule
 from errors import DeliveryRuleOverlap
-
-
-@dataclass
-class DeliveryRule:
-    from_amount: Currency
-    to_amount: Currency
-    fee: Currency
 
 
 class DeliveryRuleService:
@@ -18,9 +11,9 @@ class DeliveryRuleService:
 
     def check_over_laps(self, new_from_amount: Currency, new_to_amount: Currency):
         for rule in sorted(self.rules, key=lambda x: x.from_amount):
-            if rule.from_amount < new_from_amount < rule.to_amount:
+            if rule.from_amount <= new_from_amount < rule.to_amount:
                 return True
-            if rule.from_amount < new_to_amount < rule.to_amount:
+            if rule.from_amount <= new_to_amount <= rule.to_amount:
                 return True
         return False
 
@@ -39,3 +32,4 @@ class DeliveryRuleService:
                 return rule.fee
             if rule.from_amount <= amount <= rule.to_amount:
                 return rule.fee
+        # todo handle case where delivery rules are not covering the whole range

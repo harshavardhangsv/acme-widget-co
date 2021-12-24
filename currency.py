@@ -16,9 +16,22 @@ class Currency:
         self.amount = round(self.amount, 2)
 
     def __add__(self, other):
+        if type(other) == int and other == 0:
+            return self
         if other.type != self.type:
             raise Exception('only same type of currency can be added')
         return Currency(self.amount + other.amount, self.type)
+
+    def __sub__(self, other):
+        if other.type != self.type:
+            raise Exception('only same type of currency can be added')
+        return Currency(self.amount - other.amount, self.type)
+
+    def __truediv__(self, other):
+        return Currency(self.amount / other, self.type)
+
+    def __floordiv__(self, other):
+        return Currency(self.amount // other, self.type)
 
     def __mul__(self, other):
         return Currency(self.amount * other, self.type)
