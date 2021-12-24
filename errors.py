@@ -6,5 +6,6 @@ class UnknownProductCode(Error):
     pass
 
 
-class UnknownCurrencyType(Error):
+class DeliveryRuleOverlap(Error):
     pass
+

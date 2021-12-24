@@ -23,6 +23,16 @@ class Currency:
     def __mul__(self, other):
         return Currency(self.amount * other, self.type)
 
+    def __lt__(self, other):
+        if other.type != self.type:
+            raise Exception('only same type of currency can be added')
+        return self.amount < other.amount
+
+    def __le__(self, other):
+        if other.type != self.type:
+            raise Exception('only same type of currency can be added')
+        return self.amount <= other.amount
+
     def __radd__(self, other):
         return self.__add__(other)
 
